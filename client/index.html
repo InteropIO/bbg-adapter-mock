@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client</title>
+
+    <!-- Importing the Glue42 JS library -->
+    <script src="./../node_modules/@glue42/desktop/dist/desktop.browser.js"></script>
+    <script src="./../node_modules/@glue42/bbg-market-data/dist/umd/bbg-market-data.js"></script>
+
+    <script src="./index.js"></script>
+</head>
+
+    <h1>Mdf Bridge Client</h1>
+    <h5>Open DevTools Console (F12) to see responses.</h5>
+
+    <button onclick="createFieldSearchRequest()">Field Search</button> <br />
+    <button onclick="createHistoricalDataRequest()">Historical Data</button> <br />
+    
+    <p>
+        <button onclick="createSubscriptionRequest()">Market Data Subscription</button> <br />
+        <button onclick="closeSubscriptionRequest()">Close Market Data Subscription</button> <br />
+    </p>
+</body>
+
+</html>

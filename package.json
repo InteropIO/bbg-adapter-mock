@@ -1,0 +1,18 @@
+{
+  "name": "js-mock-bbg-connector",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "@glue42/bbg-market-data": "0.0.1-alpha.9",
+    "@glue42/desktop": "^5.15.0"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "scripts": {
+    "start": "npx http-server -p 3001"
+  },
+  "author": "Tick42",
+  "license": "ISC"
+}

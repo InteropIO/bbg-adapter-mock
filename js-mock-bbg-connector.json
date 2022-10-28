@@ -1,0 +1,18 @@
+[
+    {
+        "title": "JS Mock BBG MDF",
+        "name": "js-mock-bbg-mdf",
+        "type": "window",
+        "details": {
+            "url": "http://localhost:3001/mdf-mock/index.html"
+        }
+    },
+    {
+        "title": "BBG MDF Client",
+        "name": "js-bbg-mdf-mock-client",
+        "type": "window",
+        "details": {
+            "url": "http://localhost:3001/client/index.html"
+        }
+    }
+]
