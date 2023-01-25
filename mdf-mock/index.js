@@ -1,6 +1,7 @@
 const CREATE_REQUEST_METHOD_NAME = 'T42.MDFApi.CreateRequest';
 const CREATE_SUBS_REQUEST_METHOD_NAME = 'T42.MDFApi.CreateSubscriptionRequest';
 const CANCEL_REQUEST_METHOD_NAME = 'T42.MDFApi.CancelRequests';
+const CONNECTION_STREAM_NAME = 'T42.MDFApi.SubscribeStatus';
 
 const sleep = (ms = 0) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -210,6 +211,28 @@ const createRequestHandler = (args) => {
     });
 };
 
+const createConnectionStatusStream = async () => {
+    /**
+     * All possible connection states that the bridge can push in the stream are 'Initial' | 'Connecting' | 'Reconnecting'| 'Connected'.
+     * Unless 'Connected' is pushed on the stream, the client library (@glue42/bbg-market-data) will always report Disconnected - https://docs.glue42.com/connectors/bloomberg-connector/market-data/javascript/index.html#connection.
+     */
+
+    const streamOptions = {
+        // Accept all stream subscribers.
+        subscriptionRequestHandler: subscriptionRequest => subscriptionRequest.accept(),
+
+        // Push the 'Connected' status immediately.
+        subscriptionAddedHandler: streamSubscription => streamSubscription.push({
+            SubscriptionStatus: {
+                state: 'Connected' // 'Initial' | 'Connecting' | 'Reconnecting'| 'Connected'
+            }
+        })
+    };
+
+    const stream = await glue.interop.createStream(CONNECTION_STREAM_NAME, streamOptions);
+    // Add your own logic if you need to test connection status changes.
+}
+
 const registerApiMethods = async () => {
     await glue.interop.register(CREATE_REQUEST_METHOD_NAME, createRequestHandler);
     console.log(`${CREATE_REQUEST_METHOD_NAME} method registered.`);
@@ -219,6 +242,9 @@ const registerApiMethods = async () => {
 
     await glue.interop.register(CANCEL_REQUEST_METHOD_NAME, cancelRequestsHandler);
     console.log(`${CANCEL_REQUEST_METHOD_NAME} method registered.`);
+
+    await createConnectionStatusStream();
+    console.log(`${CONNECTION_STREAM_NAME} stream created.`);
 }
 
 const start = async () => {

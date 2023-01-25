@@ -6,6 +6,8 @@ const start = async () => {
     const bbgMarketData = window.BBGMarketData.default(glue.interop);
     window.bbgMarketData = bbgMarketData;
     console.log('BBGMarketData initialized. Version: ', bbgMarketData.version);
+
+    bbgMarketData.onConnectionStatusChanged((status) => console.log('Connection Status: ', status))
 };
 
 // Entry point.
