@@ -82,8 +82,8 @@ const createMockSubscriptionsDataGenerator = ({ subscriptions, callbackMethod, r
  */
 const createRequestResponseMockDataGenerator = ({ operationArgs, operation, requestCorrelationId, callbackMethod }) => {
     const responses = {
-        'FieldSearchRequest': window.fieldSearchResponse || [], // See the response structure in fields-search-responses.js
-        'IntradayBarRequest': window.intradayBarResponse || [] // See the response structure in fields-search-responses.js
+        'FieldSearchRequest': window.fieldSearchResponse, // See the response structure in fields-search-responses.js
+        'IntradayBarRequest': window.intradayBarResponse // See the response structure in intraday-bar-response.js
     };
 
     const events = responses[operation];

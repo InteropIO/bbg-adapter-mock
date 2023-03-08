@@ -59,7 +59,7 @@ const createSubscriptionRequest = async () => {
 }
 
 const closeSubscriptionRequest = async () => {
-    if(window.subsRequest) {
+    if (window.subsRequest) {
         await window.subsRequest.close();
     }
 }
@@ -72,6 +72,35 @@ const createFieldSearchRequest = async () => {
     // Creating the request.
     const request = window.bbgMarketData.createFieldSearchRequest(requestArgs);
     window.fieldSearchReq = request;
+
+    request.onData(function handleResponse(response) {
+        if (response.isLast) {
+            // Handle the final response.
+
+            console.log('Response: ', response.data);
+        } else {
+            // Handle partial responses.
+
+            console.log('Partial response: ', response.data);
+        }
+    });
+
+    // Sending the request to a Bloomberg service.
+    const allData = await request.open();
+    console.log('All data: ', allData);
+};
+
+const createIntradayBarRequest = async () => {
+    const requestArgs = {
+        security: "IBM US Equity",
+        eventType: BBGMarketData.IntraDayEventType.ASK,
+        startDateTime: "2019-01-01T13:00:00",
+        endDateTime: "2019-12-31T13:00:00"
+    };
+
+    // Creating the request.
+    const request = window.bbgMarketData.createIntraDayBarRequest(requestArgs);
+    window.intradayBar = request;
 
     request.onData(function handleResponse(response) {
         if (response.isLast) {
