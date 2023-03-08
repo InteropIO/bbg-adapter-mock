@@ -9,7 +9,7 @@
                     "barTickData": [
                         {
                             "open": 50.0,
-                            "time": "2014-05-22", // glue date                   
+                            "time": new Date(), // glue date                   
                             "high": 200.0,
                             "low": 120.0,
                             "close": 150.0,
