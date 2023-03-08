@@ -75,12 +75,15 @@ const createMockSubscriptionsDataGenerator = ({ subscriptions, callbackMethod, r
 
 /**
  * A dummy request/response data generator. 
- * Supports only FieldSearch requests - https://docs.glue42.com/connectors/bloomberg-connector/market-data/javascript/index.html#request_types-field_search.
+ * Supports:
+ *   - FieldSearch requests - https://docs.glue42.com/connectors/bloomberg-connector/market-data/javascript/index.html#request_types-field_search.
+ *   - IntradayBar requests - https://docs.glue42.com/connectors/bloomberg-connector/market-data/javascript/index.html#request_types-intraday_bar
  * Always returns the example data for FieldSearch requests ("operationArgs" are ignored).
  */
 const createRequestResponseMockDataGenerator = ({ operationArgs, operation, requestCorrelationId, callbackMethod }) => {
     const responses = {
-        'FieldSearchRequest': window.fieldSearchResponse || [] // See the response structure in fields-search-responses.js
+        'FieldSearchRequest': window.fieldSearchResponse || [], // See the response structure in fields-search-responses.js
+        'IntradayBarRequest': window.intradayBarResponse || [] // See the response structure in fields-search-responses.js
     };
 
     const events = responses[operation];
