@@ -3,9 +3,8 @@ const start = async () => {
     window.glue = glue;
     console.log('Glue initialized. Version: ', glue.version);
 
-    const bbgMarketData = window.BBGMarketData.default(glue.interop);
+    const bbgMarketData = window.BBGMarketData.default(glue.interop, { debug: true });
     window.bbgMarketData = bbgMarketData;
-    console.log('BBGMarketData initialized. Version: ', bbgMarketData.version);
 
     bbgMarketData.onConnectionStatusChanged((status) => console.log('Connection Status: ', status))
 };
